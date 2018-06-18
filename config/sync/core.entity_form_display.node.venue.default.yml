@@ -6,11 +6,14 @@ dependencies:
     - field.field.node.venue.body
     - field.field.node.venue.field_address
     - field.field.node.venue.field_map
+    - field.field.node.venue.field_map_image
     - field.field.node.venue.field_url
+    - image.style.thumbnail
     - node.type.venue
   module:
     - content_moderation
     - geolocation
+    - image
     - link
     - path
     - text
@@ -77,6 +80,19 @@ content:
     third_party_settings: {  }
     type: geolocation_googlegeocoder
     region: content
+  field_map_image:
+    type: entity_browser_file
+    weight: 26
+    settings:
+      entity_browser: image_browser
+      field_widget_edit: true
+      field_widget_remove: true
+      view_mode: default
+      preview_image_style: thumbnail
+      open: true
+      selection_mode: selection_append
+    region: content
+    third_party_settings: {  }
   field_url:
     weight: 2
     settings:

@@ -38,6 +38,7 @@ module:
   image: 0
   image_widget_crop: 0
   inline_entity_form: 0
+  kint: 0
   layout_discovery: 0
   lightning: 0
   lightning_core: 0
@@ -72,8 +73,11 @@ module:
   title: 0
   token: 0
   toolbar: 0
+  twig_field_value: 0
+  twig_tweak: 0
   update: 0
   user: 0
+  venue: 0
   viewfield: 0
   views_infinite_scroll: 0
   views_ui: 0

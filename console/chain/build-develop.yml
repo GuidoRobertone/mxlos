@@ -13,6 +13,10 @@ commands:
       profile: mxlos
   # Import configuration
   - command: config:import
+  # Rebuild caches.
+  - command: cache:rebuild
+    arguments:
+        cache: all
   # Import split configuration
   - command: config_split:import
     options:

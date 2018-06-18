@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Contains event.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_help().
+ */
+function venue_help($route_name, RouteMatchInterface $route_match) {
+    switch ($route_name) {
+        // Main module help for the event module.
+        case 'help.page.venue':
+            $output = '';
+            $output .= '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('Venue Custom functionality') . '</p>';
+            return $output;
+
+        default:
+    }
+}
+
+//function venue_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)  {
+//    if ($form_id === 'node_venue_edit_form') {
+//        echo $form_id . "<br/>" . PHP_EOL;
+//    }
+//}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for node entities.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ */
+function venue_node_presave(EntityInterface $node) {
+    if ($node->bundle() === 'venue') {
+        $fileSystem = \Drupal::service('file_system');
+        if (!$node->get('field_address')->getValue()) {
+            $address = current($node->get('field_address')->getValue());
+            $address = preg_replace( "/\r|\n/", "", $address['value']);
+            $mapKey = \Drupal::config('geolocation.settings')
+                ->get('google_map_api_key');
+            $url = "https://maps.googleapis.com/maps/api/staticmap?center=$address&zoom=13&size=600x300&maptype=roadmap&key=$mapKey";
+            $uuid = $node->uuid();
+            $mapDirectory = "public://google/static";
+            $filePath = "$mapDirectory/$uuid.png";
+            if (!is_dir($fileSystem->realpath($mapDirectory))) {
+                $fileSystem->mkdir($mapDirectory, NULL, TRUE);
+            }
+            $fileRealPath = $fileSystem->realpath($filePath);
+            \Drupal::httpClient()->get($url, ['save_to' => $fileRealPath]);
+
+            _setImage($node, $filePath, 'field_map_image');
+        }
+    }
+}
+
+function _setImage($node, $uri, $fieldName) {
+    $files = \Drupal::entityTypeManager()
+        ->getStorage('file')
+        ->loadByProperties(['uri' => $uri]);
+
+    $file = reset($files);
+
+    if (!$file) {
+        $file = File::create([
+            'uri' => $uri,
+        ]);
+
+        $file->save();
+    }
+
+    $node->set($fieldName,[
+        'target_id' => $file->id()
+    ]);
+}

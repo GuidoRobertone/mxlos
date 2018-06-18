@@ -7,10 +7,11 @@ dependencies:
     - field.field.node.venue.body
     - field.field.node.venue.field_address
     - field.field.node.venue.field_map
+    - field.field.node.venue.field_map_image
     - field.field.node.venue.field_url
     - node.type.venue
   module:
-    - geolocation
+    - image
     - link
     - panelizer
     - title
@@ -33,38 +34,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_map:
-    type: geolocation_map
+  field_map_image:
+    type: image
     weight: 2
     region: content
     label: hidden
     settings:
-      set_marker: '1'
-      title: ''
-      info_text: ''
-      google_map_settings:
-        height: 400px
-        width: 760px
-        type: HYBRID
-        zoom: '18'
-        maxZoom: 18
-        minZoom: 18
-        gestureHandling: auto
-        style: ''
-        info_auto_display: 1
-        marker_icon_path: ''
-        disableAutoPan: 1
-        mapTypeControl: 0
-        streetViewControl: 0
-        zoomControl: 0
-        rotateControl: 0
-        fullscreenControl: 0
-        scrollwheel: 0
-        draggable: 0
-        preferScrollingToZooming: 0
-        disableDoubleClickZoom: 0
-      use_overridden_map_settings: 0
-      common_map: ''
+      image_style: ''
+      image_link: ''
     third_party_settings: {  }
   field_url:
     type: link
@@ -90,4 +67,5 @@ content:
     region: content
 hidden:
   body: true
+  field_map: true
   links: true

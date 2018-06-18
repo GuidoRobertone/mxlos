@@ -12,7 +12,7 @@ dependencies:
   module:
     - image
     - panelizer
-    - text
+    - smart_trim
     - title
     - user
 third_party_settings:
@@ -28,10 +28,21 @@ mode: teaser
 content:
   body:
     label: hidden
-    type: text_trimmed
+    type: smart_trim
     weight: 2
     settings:
-      trim_length: 300
+      trim_length: 25
+      trim_type: words
+      trim_suffix: ''
+      wrap_class: trimmed
+      more_text: More
+      more_class: more-link
+      summary_handler: full
+      wrap_output: false
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
     third_party_settings: {  }
     region: content
   field_image:
