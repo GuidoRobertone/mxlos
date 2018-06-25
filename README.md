@@ -16,6 +16,9 @@ cp .env.dist .env
 
 # Add hostname entry in your /etc/hosts file
 127.0.0.1    mxlos.develop
+
+# Start containers
+ahoy up
 ```
 
 ## Sync Project
@@ -37,6 +40,18 @@ ahoy composer install
 
 # Build Drupal site
 ahoy drupal build:develop
+
+# Create branch
+git checkout -b BRANCH_NAME 
+
+# Add file changes
+git add -p
+
+# Commit changes
+git commit -m MESSAGE_SUBJECT
+
+# Push code to repository
+git push origin BRANCH_NAME
 ```
 
 ## Using Composer 
