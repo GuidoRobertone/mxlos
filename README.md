@@ -21,16 +21,16 @@ cp .env.dist .env
 ## Sync Project
 ```
 # Switch develop branch
-git checkout develop
+git checkout master
 
 # Fetch latest changes
 git fetch upstream
 
 # Merge changes locally
-git merge upstream/develop
+git merge upstream/master
 
 # Sync forked repo 
-git push origin/develop
+git push origin/master
 
 # Download new dependencies
 ahoy composer install
@@ -39,9 +39,13 @@ ahoy composer install
 ahoy drupal build:develop
 ```
 
-## Download new dependencies 
+## Using Composer 
 ```
+ahoy composer install
+
 ahoy composer require drupal/MODULE_NAME
+
+ahoy composer remove drupal/MODULE_NAME
 ```
 
 ## Export Configuration
